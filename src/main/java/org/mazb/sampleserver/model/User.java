@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 
@@ -38,9 +40,19 @@ public class User implements Serializable {
     @Column(name="created_on")
     private Date createdOn;
     
+    @Column(name="created_by")
+    private String createdBy;
+    
     @Temporal(javax.persistence.TemporalType.DATE)
     @Column(name="last_modified")
     private Date lastModified;
+    
+    @Column(name="modified_by")
+    private String modifiedBy;
+    
+    @ManyToOne
+    @JoinColumn(name="role_id")
+    private Role role;
 
     public int getId() {
         return id;
@@ -98,12 +110,37 @@ public class User implements Serializable {
         this.lastModified = lastModified;
     }
 
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public String getModifiedBy() {
+        return modifiedBy;
+    }
+
+    public void setModifiedBy(String modifiedBy) {
+        this.modifiedBy = modifiedBy;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
     @Override
     public String toString() {
         return "User{" + "id=" + id + ", userName=" + userName 
                 + ", realName=" + realName + ", email=" + email 
                 + ", password=" + password + ", createdOn=" + createdOn 
-                + ", lastModified=" + lastModified + '}';
+                + ", createdBy=" + createdBy + ", lastModified=" + lastModified 
+                + ", modifiedBy=" + modifiedBy + ", role=" + role + '}';
     }
     
 }

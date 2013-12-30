@@ -27,6 +27,16 @@ public class UserDaoImpl implements UserDao{
         session.flush();
         session.close();
     }
+    
+    @Override
+    public void updateUser(User user){
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        session.merge(user);
+        session.getTransaction().commit();
+        session.flush();
+        session.close();
+    }
 
     @Override
     public void deleteUser(User user) {

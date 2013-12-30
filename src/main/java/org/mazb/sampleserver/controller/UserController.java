@@ -1,7 +1,7 @@
 package org.mazb.sampleserver.controller;
 
-import org.mazb.sampleserver.dao.UserDao;
-import org.mazb.sampleserver.model.User;
+import org.mazb.sampleserver.manager.UserManager;
+import org.mazb.sampleserver.model.dto.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,19 +18,16 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class UserController {
     
     @Autowired
-    private UserDao userDao;
+    private UserManager userManager;
     
     @RequestMapping(value = "/validateUser", method = RequestMethod.POST, produces={"application/json"})
     @ResponseBody
-    public ResponseEntity<User> checkUser(@ModelAttribute User userReq) {
-        
-        User user = userDao.checkUser(userReq.getUserName(), userReq.getPassword());
-        
+    public ResponseEntity<UserDto> checkUser(@ModelAttribute UserDto userReq) {
+        UserDto user = userManager.checkUser(userReq.getUserName(), userReq.getPassword());
         if(user==null){
-            return new ResponseEntity<User>(HttpStatus.FORBIDDEN);
+            return new ResponseEntity<UserDto>(HttpStatus.FORBIDDEN);
         }
-        
-        return new ResponseEntity<User>(user, HttpStatus.ACCEPTED);
+        return new ResponseEntity<UserDto>(user, HttpStatus.ACCEPTED);
     }
     
 }
