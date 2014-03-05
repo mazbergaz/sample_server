@@ -25,15 +25,15 @@ public class UserTest {
 
     @Test
     public void checkUserTest() {
-        User user = userDao.checkUser("mazbergaz", "bergas123");
+        User user = userDao.checkUser("mazbergaz", "mazbergaz123");
         assertTrue(user!=null);
-        user = userDao.checkUser("mazbergaz", "bergas13");
+        user = userDao.checkUser("mazbergaz", "mazbergaz13");
         assertTrue(user==null);
     }
     
     @Test
     public void checkUserManagerTest(){
-        UserDto user = userManager.checkUser("mazbergaz", "bergas123");
+        UserDto user = userManager.checkUser("mazbergaz", "mazbergaz123");
         assertTrue(user!=null && user.getRoleDto().getCode().equals("ADM"));
     }
 }
